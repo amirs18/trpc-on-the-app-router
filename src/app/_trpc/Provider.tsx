@@ -14,7 +14,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       transformer:superjson,
       links: [
         httpBatchLink({
-          url: "/api/trpc",
+          url: `${process.env.NEXT_PUBLIC_APP_URL}/api/trpc`,
         }),
       ],
     })
