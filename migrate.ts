@@ -12,7 +12,6 @@ require('dotenv').config({ path: './.env.local' })
 
 
 async function migrateToLatest() {
-  console.log(process.env.POSTGRES_DATABASE);
   
     const dialect = new PostgresDialect({
       pool: new Pool({
@@ -22,6 +21,7 @@ async function migrateToLatest() {
         password: process.env.POSTGRES_PASSWORD,
         port: Number.isNaN(parseInt(process.env.POSTGRES_PORT as string)) ? undefined: parseInt(process.env.POSTGRES_PORT as string),
         max: 10,
+        ssl: process.env.NODE_ENV === 'production' ? true : false
       }),
     });
     const db = new Kysely<Database>({

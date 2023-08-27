@@ -17,7 +17,7 @@ const dialect = new PostgresDialect({
     password: process.env.POSTGRES_PASSWORD,
     port: Number.isNaN(parseInt(process.env.POSTGRES_PORT as string)) ? undefined: parseInt(process.env.POSTGRES_PORT as string),
     max: 10,
-  }),
+    ssl: process.env.NODE_ENV === 'production' ? true : false  }),
 });
 
 // Database interface is passed to Kysely's constructor, and from now on, Kysely
