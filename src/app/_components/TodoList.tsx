@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-
 import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
 
@@ -27,32 +26,32 @@ export default function TodoList({
 
   const [content, setContent] = useState("");
 
-    return (
+  return (
     <div>
       <div className="text-black my-5 text-3xl">
-        {getTodos?.data?.sort((a,b)=> {
-          if(a.created_at>b.created_at)
-            return -1
-            if(a.created_at<b.created_at)
-            return 1
-          return 0
-        }).map((todo) => (
-          <div key={todo.id} className="flex gap-3 items-center">
-            <input
-              id={`check-${todo.id}`}
-              type="checkbox"
-              checked={!!todo.done}
-              style={{ zoom: 1.5 }}
-              onChange={async () => {
-                setDone.mutate({
-                  id: todo.id,
-                  done: todo.done===false ? true : false,
-                });
-              }}
-            />
-            <label htmlFor={`check-${todo.id}`}>{todo.name}</label>
-          </div>
-        ))}
+        {getTodos?.data
+          ?.sort((a, b) => {
+            if (a.created_at > b.created_at) return -1;
+            if (a.created_at < b.created_at) return 1;
+            return 0;
+          })
+          .map((todo) => (
+            <div key={todo.id} className="flex gap-3 items-center">
+              <input
+                id={`check-${todo.id}`}
+                type="checkbox"
+                checked={!!todo.done}
+                style={{ zoom: 1.5 }}
+                onChange={async () => {
+                  setDone.mutate({
+                    id: todo.id,
+                    done: todo.done === false ? true : false,
+                  });
+                }}
+              />
+              <label htmlFor={`check-${todo.id}`}>{todo.name}</label>
+            </div>
+          ))}
       </div>
       <div className="flex gap-3 items-center">
         <label htmlFor="content">Content</label>
@@ -65,7 +64,7 @@ export default function TodoList({
         <button
           onClick={async () => {
             if (content.length) {
-              addTodo.mutate({name:content,done:false});
+              addTodo.mutate({ name: content, done: false });
               setContent("");
             }
           }}
