@@ -7,7 +7,6 @@ import superjson from 'superjson'
 import { trpc } from "./client";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
-  console.log(process.env.NEXT_PUBLIC_APP_URL);
   
   const [queryClient] = useState(() => new QueryClient({}));
   const [trpcClient] = useState(() =>
@@ -15,7 +14,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       transformer:superjson,
       links: [
         httpBatchLink({
-          url: `${process.env.NEXT_PUBLIC_APP_URL}/api/trpc`,
+          url: "/api/trpc",
         }),
       ],
     })
