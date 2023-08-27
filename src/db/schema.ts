@@ -9,6 +9,8 @@ export interface TodoTable {
   name: string
   done:boolean
   created_at: ColumnType<Date, string | undefined, never>
+  updated_at: ColumnType<Date, string | undefined,Date| undefined>
+
 }
 export type Todo = Selectable<TodoTable>
 export type NewTodo = Insertable<TodoTable>

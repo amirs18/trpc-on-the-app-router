@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { date, z } from "zod";
 import { publicProcedure, router } from "./trpc";
 import { db } from "../db/database";
 import { NewTodo, Todo, TodoUpdate } from "../db/schema";
@@ -15,6 +15,7 @@ export const appRouter = router({
   setDone: publicProcedure
     .input(z.custom<TodoUpdate>())
     .mutation(async (opts) => {
+      opts.input.updated_at = new Date()
       if(opts.input.id)
       await db.updateTable("todo").where("todo.id",'=',opts.input.id).set(opts.input).execute()
       return true;
