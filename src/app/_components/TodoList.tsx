@@ -30,7 +30,13 @@ export default function TodoList({
     return (
     <div>
       <div className="text-black my-5 text-3xl">
-        {getTodos?.data?.map((todo) => (
+        {getTodos?.data?.sort((a,b)=> {
+          if(a.created_at>b.created_at)
+            return -1
+            if(a.created_at<b.created_at)
+            return 1
+          return 0
+        }).map((todo) => (
           <div key={todo.id} className="flex gap-3 items-center">
             <input
               id={`check-${todo.id}`}

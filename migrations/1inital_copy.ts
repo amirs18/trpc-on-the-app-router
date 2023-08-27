@@ -1,9 +1,9 @@
 import { Kysely ,sql} from 'kysely'
-import {db} from '../database'
+import {db} from '../src/db/database'
 
 export async function up(db: Kysely<any>): Promise<void> {
         await db.schema
-        .createTable('todo')
+        .createTable('done')
         .addColumn('id','serial',(col)=>col.primaryKey())
         .addColumn('done','boolean',(col)=>col.notNull())
         .addColumn('name','varchar',(col)=>col.notNull())
