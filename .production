@@ -1,0 +1,8 @@
+POSTGRES_URL="postgres://default:tHlcmi6us7fv@ep-lively-mountain-91945001-pooler.eu-central-1.postgres.vercel-storage.com:5432/verceldb"
+POSTGRES_PRISMA_URL="postgres://default:tHlcmi6us7fv@ep-lively-mountain-91945001-pooler.eu-central-1.postgres.vercel-storage.com:5432/verceldb?pgbouncer=true&connect_timeout=15"
+POSTGRES_URL_NON_POOLING="postgres://default:tHlcmi6us7fv@ep-lively-mountain-91945001.eu-central-1.postgres.vercel-storage.com:5432/verceldb"
+POSTGRES_USER="default"
+POSTGRES_HOST="ep-lively-mountain-91945001-pooler.eu-central-1.postgres.vercel-storage.com"
+POSTGRES_PASSWORD="tHlcmi6us7fv"
+POSTGRES_DATABASE="verceldb"
+NODE_ENV="production"

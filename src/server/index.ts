@@ -2,6 +2,7 @@ import { date, z } from "zod";
 import { publicProcedure, router } from "./trpc";
 import { db } from "../db/database";
 import { NewTodo, Todo, TodoUpdate } from "../db/schema";
+export const runtime = 'edge'
 
 export const appRouter = router({
   getTodos: publicProcedure.query(async () => {
