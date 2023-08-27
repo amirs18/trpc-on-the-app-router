@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx ts-node migrate.ts && next dev",
-    "build": "npx ts-node migrate.ts && next build",
+    "dev": "npx ts-node -r dotenv/config migrate.ts && next dev",
+    "build": "npx ts-node -r dotenv/config migrate.ts && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -14,6 +14,7 @@
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
     "autoprefixer": "10.4.15",
+    "dotenv": "^16.3.1",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
     "kysely": "^0.26.1",

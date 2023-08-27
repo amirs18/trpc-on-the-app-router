@@ -11,7 +11,12 @@ import path from "path";
 
 const dialect = new PostgresDialect({
   pool: new Pool({
-    connectionString: process.env.DATABASE_URL,
+    database: process.env.POSTGRES_DATABASE,
+    host: process.env.POSTGRES_HOST,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    port: Number.isNaN(parseInt(process.env.POSTGRES_PORT as string)) ? undefined: parseInt(process.env.POSTGRES_PORT as string),
+    max: 10,
   }),
 });
 
