@@ -13,7 +13,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
       transformer:superjson,
       links: [
         httpBatchLink({
-          url: "http://localhost:3000/api/trpc",
+          url: `${process.env.APP_URL}/api/trpc`,
         }),
       ],
     })
