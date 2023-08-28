@@ -22,8 +22,7 @@ export default function TodoList({
   const setDone = trpc.setDone.useMutation();
   const [content, setContent] = useState("");
 
-  if (setDone.isLoading || addTodo.isLoading || getTodos.isLoading) {
-  }
+
   return (
     <div>
       <div className="text-black my-5 text-3xl">
