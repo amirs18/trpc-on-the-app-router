@@ -13,13 +13,13 @@ export default function TodoList({
     refetchOnMount: false,
     refetchOnReconnect: false,
   });
+  
   const addTodo = trpc.addTodo.useMutation({
     onSettled: () => {
       getTodos.refetch();
     },
   });
   const setDone = trpc.setDone.useMutation();
-
   const [content, setContent] = useState("");
 
   if (setDone.isLoading || addTodo.isLoading || getTodos.isLoading) {
@@ -41,6 +41,7 @@ export default function TodoList({
                 checked={todo.done}
                 className="checkbox checkbox-primary "
                 onChange={async (e) => {
+                  e.target.disabled=true
                   e.target.className = "loading loading-spinner loading-md scale-125";
                   setDone.mutate(
                     {
@@ -49,7 +50,10 @@ export default function TodoList({
                     },
                     {
                       onSettled: () => {
-                        getTodos.refetch().then(()=>e.target.className="checkbox checkbox-primary");
+                        getTodos.refetch().then(()=>{
+                          e.target.className="checkbox checkbox-primary"
+                          e.target.disabled=false
+                      });
                       },
                     }
                   );
