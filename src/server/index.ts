@@ -20,6 +20,10 @@ export const appRouter = router({
       await db.updateTable("todo").where("todo.id",'=',opts.input.id).set(opts.input).execute()
       return true;
     }),
+    delete: publicProcedure.input(z.custom<TodoUpdate>()).mutation(async (opts) => {
+      if(opts.input.id)
+      await db.deleteFrom('todo').where("todo.id",'=',opts.input.id).execute()
+    })
 });
 
 export type AppRouter = typeof appRouter;
