@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
+import LoadingCircle, { loadingCircleStringHtml } from "./LoadingCircle";
 
 export default function TodoList({
   initialTodos,
@@ -18,14 +19,12 @@ export default function TodoList({
       getTodos.refetch();
     },
   });
-  const setDone = trpc.setDone.useMutation({
-    onSettled: () => {
-      getTodos.refetch();
-    },
-  });
+  const setDone = trpc.setDone.useMutation();
 
   const [content, setContent] = useState("");
 
+  if (setDone.isLoading || addTodo.isLoading || getTodos.isLoading) {
+  }
   return (
     <div>
       <div className="text-black my-5 text-3xl">
@@ -40,13 +39,21 @@ export default function TodoList({
               <input
                 id={`check-${todo.id}`}
                 type="checkbox"
-                checked={!!todo.done}
-                style={{ zoom: 1.5 }}
-                onChange={async () => {
-                  setDone.mutate({
-                    id: todo.id,
-                    done: todo.done === false ? true : false,
-                  });
+                checked={todo.done}
+                className="checkbox checkbox-primary "
+                onChange={async (e) => {
+                  e.target.className = "loading loading-spinner loading-md scale-125";
+                  setDone.mutate(
+                    {
+                      id: todo.id,
+                      done: todo.done === false ? true : false,
+                    },
+                    {
+                      onSettled: () => {
+                        getTodos.refetch().then(()=>e.target.className="checkbox checkbox-primary");
+                      },
+                    }
+                  );
                 }}
               />
               <label htmlFor={`check-${todo.id}`}>{todo.name}</label>
