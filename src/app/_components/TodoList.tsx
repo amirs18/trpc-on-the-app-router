@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
-import LoadingCircle, { loadingCircleStringHtml } from "./LoadingCircle";
 
 export default function TodoList({
   initialTodos,
