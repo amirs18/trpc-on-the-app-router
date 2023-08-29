@@ -17,7 +17,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
           url: `${process.env.NEXT_PUBLIC_APP_URL}/api/trpc`,
         }),
       ],
-    })
+  })
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
@@ -25,3 +25,4 @@ export default function Provider({ children }: { children: React.ReactNode }) {
     </trpc.Provider>
   );
 }
+

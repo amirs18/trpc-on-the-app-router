@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.1.0",
     "@tanstack/react-query": "^4.32.6",
     "@trpc/client": "^10.38.0",
     "@trpc/react-query": "^10.38.0",
@@ -18,8 +19,10 @@
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.16",
     "kysely": "^0.26.3",
+    "kysely-codegen": "^0.10.1",
     "kysely-migration-cli": "^0.2.1",
     "next": "13.4.16",
+    "next-auth": "^4.23.1",
     "pg": "^8.11.3",
     "postcss": "8.4.28",
     "react": "18.2.0",

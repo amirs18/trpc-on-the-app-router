@@ -3,11 +3,7 @@ import { Pool } from "pg"; // this is the Pool interface we defined earlier
 import {
   Kysely,
   PostgresDialect,
-  Migrator,
-  MigrationProvider,
-  FileMigrationProvider,
 } from "kysely";
-import path from "path";
 
 const dialect = new PostgresDialect({
   pool: new Pool({
