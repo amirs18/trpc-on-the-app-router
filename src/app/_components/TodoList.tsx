@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function TodoList({
   initialTodos,
 }: {
   initialTodos: Awaited<ReturnType<(typeof serverClient)["getTodos"]>>;
 }) {
+  const { data: sessionData } = useSession();
   const getTodos = trpc.getTodos.useQuery(undefined, {
     initialData: initialTodos,
     refetchOnMount: false,
@@ -112,6 +114,18 @@ export default function TodoList({
         >
           Add Todo
         </button>
+        <a
+          onClick={async () => {
+            if (sessionData?.user) signOut();
+            else signIn();
+          }}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        >
+          
+          {sessionData?.user ?<>logout</> :  <>login</>}  
+
+          
+        </a>
       </div>
     </div>
   );

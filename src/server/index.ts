@@ -1,10 +1,11 @@
 import { date, z } from "zod";
-import { publicProcedure, router } from "./trpc";
+import { priveteProcedure,publicProcedure, createTRPCRouter } from "./trpc";
 import { db } from "../db/database";
 import { NewTodo, Todo, TodoUpdate } from "../db/schema";
 
-export const appRouter = router({
-  getTodos: publicProcedure.query(async () => {
+
+export const appRouter = createTRPCRouter({
+  getTodos: publicProcedure.query(async (opts) => {
     const todos = await db.selectFrom('todo').selectAll().execute();
     return todos
   }),
@@ -12,7 +13,7 @@ export const appRouter = router({
     await db.insertInto("todo").values(opts.input).executeTakeFirstOrThrow();
     return true;
   }),
-  setDone: publicProcedure
+  setDone: priveteProcedure
     .input(z.custom<TodoUpdate>())
     .mutation(async (opts) => {
       opts.input.updated_at = new Date()
