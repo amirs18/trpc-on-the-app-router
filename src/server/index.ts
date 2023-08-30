@@ -5,11 +5,11 @@ import { NewTodo, Todo, TodoUpdate } from "../db/schema";
 import { TRPCError } from "@trpc/server";
 
 // function delay(ms: number) {
-//   return new Promise((resolve) => setTimeout(resolve, ms));
+  //   return new Promise((resolve) => setTimeout(resolve, ms));
 // }
 export const appRouter = createTRPCRouter({
   getTodos: publicProcedure.query(async (opts) => {
-    const todos = await db.selectFrom("todo").selectAll().execute();
+        const todos = await db.selectFrom("todo").selectAll().execute();
     return todos;
   }),
   addTodo: publicProcedure.input(z.custom<NewTodo>()).mutation(async (opts) => {
@@ -19,7 +19,7 @@ export const appRouter = createTRPCRouter({
   setDone: priveteProcedure
     .input(z.custom<TodoUpdate>())
     .mutation(async (opts) => {
-      opts.input.updated_at = new Date();
+            opts.input.updated_at = new Date();
       if (opts.input.id)
         try {
           await db
@@ -27,7 +27,7 @@ export const appRouter = createTRPCRouter({
             .where("todo.id", "=", opts.input.id)
             .set(opts.input)
             .execute();
-          return opts.input.id;
+          return opts.input;
         } catch (error) {
           throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
         }

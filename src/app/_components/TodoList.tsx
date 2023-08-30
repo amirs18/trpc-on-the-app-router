@@ -3,6 +3,7 @@ import { useState } from "react";
 import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { json } from "stream/consumers";
 
 export default function TodoList({
   initialTodos,
@@ -22,10 +23,10 @@ export default function TodoList({
     },
   });
   const setDone = trpc.setDone.useMutation({
-    onSettled(data, error, variables, context) {
-      const element = window.document.getElementById(`check-${data}`);
+    async onSettled(data, error, variables, context) {
+      await getTodos.refetch();
+      const element = document.getElementById(`check-${data?.id}`);
       if (element) element.className = "checkbox checkbox-primary";
-      getTodos.refetch();
     },
   });
 
