@@ -22,7 +22,6 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 export async function createTRPCContext(opts?: FetchCreateContextFnOptions) {
 
   const session = await getServerAuthSession();
-  console.log("🚀 ~ file: trpc.ts:25 ~ createTRPCContext ~ session:", session)
   return { session };
 }
 export const isAuthenticated = t.middleware(({ ctx, next }) => {
