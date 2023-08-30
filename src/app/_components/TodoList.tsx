@@ -21,11 +21,17 @@ export default function TodoList({
       getTodos.refetch();
     },
   });
-  const setDone = trpc.setDone.useMutation();
+  const setDone = trpc.setDone.useMutation({
+    onSettled(data, error, variables, context) {
+      const element = window.document.getElementById(`check-${data}`);
+      if (element) element.className = "checkbox checkbox-primary";
+      getTodos.refetch();
+    },
+  });
+
   const del = trpc.delete.useMutation();
 
   const [content, setContent] = useState("");
-
   return (
     <div>
       <div className="text-black my-5 text-3xl">
@@ -43,23 +49,12 @@ export default function TodoList({
                 checked={todo.done}
                 className="checkbox checkbox-primary "
                 onChange={(e) => {
-                  e.target.disabled = true;
                   e.target.className =
                     "loading loading-spinner loading-md scale-125";
-                  setDone.mutate(
-                    {
-                      id: todo.id,
-                      done: todo.done === false ? true : false,
-                    },
-                    {
-                      onSettled: () => {
-                        getTodos.refetch().then(() => {
-                          e.target.className = "checkbox checkbox-primary";
-                          e.target.disabled = false;
-                        });
-                      },
-                    }
-                  );
+                  setDone.mutate({
+                    id: todo.id,
+                    done: todo.done === false ? true : false,
+                  });
                 }}
               />
               <label htmlFor={`check-${todo.id}`}>{todo.name}</label>
@@ -71,8 +66,6 @@ export default function TodoList({
                 stroke="currentColor"
                 className="w-6 h-6 cursor-pointer"
                 onClick={(e) => {
-                  console.log("hi");
-
                   if (e.currentTarget.parentElement) {
                     e.currentTarget.parentElement.innerHTML = "";
                   }
@@ -121,10 +114,7 @@ export default function TodoList({
           }}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         >
-          
-          {sessionData?.user ?<>logout</> :  <>login</>}  
-
-          
+          {sessionData?.user ? <>logout</> : <>login</>}
         </a>
       </div>
     </div>
