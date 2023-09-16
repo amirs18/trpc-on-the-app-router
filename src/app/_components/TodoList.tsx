@@ -4,6 +4,7 @@ import { trpc } from "../_trpc/client";
 import { serverClient } from "../_trpc/serverClient";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { json } from "stream/consumers";
+export const runtime = 'edge'
 
 export default function TodoList({
   initialTodos,
